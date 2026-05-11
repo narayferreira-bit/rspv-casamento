@@ -2,181 +2,162 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
 <title>Joaz & Thaay</title>
 
 <style>
 *{
-margin:0;
-padding:0;
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,body{
-background:black;
-overflow-x:hidden;
-font-family:serif;
-touch-action:manipulation;
-overscroll-behavior:none;
+  background:black;
+  overflow-x:hidden;
+  font-family: serif;
 }
 
 /* CONTAINER */
 .container{
-position:relative;
-max-width:500px;
-margin:auto;
-background:black;
+  position:relative;
+  max-width:500px;
+  margin:auto;
+  background:black;
 }
 
 /* VÍDEO */
 video{
-width:100%;
-display:block;
-object-fit:cover;
+  width:100%;
+  display:block;
+  object-fit:cover;
+  cursor:pointer;
 }
 
 /* CONVITE */
 #convite{
-display:none;
-position:relative;
+  display:none;
+  position:relative;
 }
 
 #convite img{
-width:100%;
-display:block;
+  width:100%;
+  display:block;
 }
 
 /* ÁREAS DE CLIQUE */
 .click{
-position:absolute;
-bottom:3.5%;
-width:12%;
-height:8%;
-border-radius:50%;
-cursor:pointer;
+  position:absolute;
+  bottom:3.5%;
+  width:12%;
+  height:6%;
+  cursor:pointer;
 }
 
-/* POSIÇÕES */
+/* POSIÇÕES DOS BOTÕES */
 .dress{
-left:7%;
+ left:7%;
 }
 
 .local{
-left:26%;
+ left:26%;
 }
 
 .confirmar{
-left:44%;
+ left:44%;
 }
 
 .presente{
-left:62%;
+ left:62%;
 }
 
 .manual{
-left:80%;
+ left:80%;
 }
 
 /* MODAL */
 .modal{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,0.9);
-justify-content:center;
-align-items:center;
-z-index:9999;
-padding:20px;
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  padding:20px;
 }
 
 .modal img{
-width:100%;
-max-width:500px;
-border-radius:20px;
+  width:100%;
+  max-width:500px;
+  border-radius:12px;
 }
 
 .close{
-position:absolute;
-top:20px;
-right:25px;
-font-size:40px;
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-/* BOTÃO ENTRAR */
-#playOverlay{
-position:fixed;
-inset:0;
-background:black;
-display:flex;
-justify-content:center;
-align-items:center;
-z-index:99999;
-}
-
-.play-btn{
-background:#b79a63;
-color:white;
-border:none;
-padding:18px 40px;
-border-radius:40px;
-font-size:20px;
-font-weight:bold;
-cursor:pointer;
-box-shadow:0 8px 25px rgba(0,0,0,.4);
+  position:absolute;
+  top:20px;
+  right:25px;
+  color:white;
+  font-size:35px;
+  cursor:pointer;
 }
 </style>
 </head>
 
 <body>
 
-<!-- BOTÃO DE ENTRADA -->
-<div id="playOverlay">
-<button class="play-btn" onclick="iniciarConvite()">
-Abrir Convite 💛
-</button>
-</div>
-
 <!-- VÍDEO -->
 <div class="container">
-<video id="video" playsinline preload="auto">
-<source src="video.mp4" type="video/mp4">
-</video>
+  <video id="video" poster="capa.jpg" playsinline>
+    <source src="video.mp4" type="video/mp4">
+  </video>
 </div>
 
 <!-- MÚSICA -->
 <audio id="musica" loop>
-<source src="musica.mp3" type="audio/mpeg">
+  <source src="musica.mp3" type="audio/mp3">
 </audio>
 
 <!-- CONVITE -->
 <div id="convite" class="container">
 
-<img src="convite.png" alt="Convite">
+<img src="convite.png">
 
-<div class="click dress" onclick="abrirModal('dresscode.png')"></div>
+<div class="click dress"
+onclick="abrirModal('dresscode.png')">
+</div>
 
-<div class="click local" onclick="abrirLocal()"></div>
+<div class="click local"
+onclick="abrirLocal()">
+</div>
 
-<div class="click confirmar" onclick="abrirConfirmacao()"></div>
+<div class="click confirmar"
+onclick="abrirConfirmacao()">
+</div>
 
-<div class="click presente" onclick="copiarPix()"></div>
+<div class="click presente"
+onclick="abrirModal('presentes.png')">
+</div>
 
-<div class="click manual" onclick="abrirModal('manual.png')"></div>
+<div class="click manual"
+onclick="abrirModal('manual.png')">
+</div>
 
 </div>
 
 <!-- MODAL -->
-<div id="modal" class="modal" onclick="fecharModal()">
-<span class="close">×</span>
+<div id="modal" class="modal">
+
+<span class="close"
+onclick="fecharModal()">×</span>
+
 <img id="imgModal">
+
 </div>
 
 <script>
@@ -184,55 +165,76 @@ Abrir Convite 💛
 const video = document.getElementById("video");
 const musica = document.getElementById("musica");
 const convite = document.getElementById("convite");
+const modal = document.getElementById("modal");
+const imgModal = document.getElementById("imgModal");
 
-/* INICIAR */
-function iniciarConvite(){
+/* TOQUE PARA ABRIR */
+video.addEventListener("click", async () => {
 
-document.getElementById("playOverlay").style.display="none";
+ try{
+   await video.play();
+   await musica.play();
+ }catch(error){
+   console.log(error);
+ }
 
-video.play().catch(()=>{});
-musica.play().catch(()=>{});
-}
+});
 
-/* QUANDO TERMINAR O VÍDEO */
+/* TERMINOU O VÍDEO */
 video.onended = () => {
-video.style.display="none";
-convite.style.display="block";
+
+ video.style.display = "none";
+ convite.style.display = "block";
+
 };
 
-/* MODAL */
-function abrirModal(img){
-document.getElementById("modal").style.display="flex";
-document.getElementById("imgModal").src=img;
+/* ABRIR MODAL */
+function abrirModal(imagem){
+
+ modal.style.display = "flex";
+ imgModal.src = imagem;
+
 }
 
+/* FECHAR MODAL */
 function fecharModal(){
-document.getElementById("modal").style.display="none";
+
+ modal.style.display = "none";
+
 }
 
 /* LOCALIZAÇÃO */
 function abrirLocal(){
-window.open(
-"https://share.google/unqtJ1mP9uSPobIu9",
-"_blank"
-);
+
+ window.open(
+ "https://share.google/unqtJ1mP9uSPobIu9",
+ "_blank"
+ );
+
 }
 
-/* CONFIRMAÇÃO RSVP */
+/* CONFIRMAR PRESENÇA */
 function abrirConfirmacao(){
-window.open(
-"https://rspv-casamento-three.vercel.app/",
-"_blank"
-);
+
+ window.open(
+ "https://rspv-casamento-three.vercel.app/",
+ "_blank"
+ );
+
 }
 
 /* PIX */
-function copiarPix(){
+imgModal.addEventListener("click", () => {
 
-navigator.clipboard.writeText("02965634207");
+ if(imgModal.src.includes("presentes.png")){
 
-alert("💚 Chave Pix copiada!");
+   navigator.clipboard.writeText("02965634207");
+
+   alert("💚 Obrigada pelo carinho!\nSua contribuição significa muito para nós. Que Deus abençoe você ✨");
 }
+
+});
+
 
 </script>
 
