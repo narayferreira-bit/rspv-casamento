@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+<title>Joaz & Thaay</title>
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+background:black;
+overflow-x:hidden;
+font-family:serif;
+touch-action:manipulation;
+overscroll-behavior:none;
+}
+
+/* CONTAINER */
+.container{
+position:relative;
+max-width:500px;
+margin:auto;
+background:black;
+}
+
+/* VÍDEO */
+video{
+width:100%;
+display:block;
+object-fit:cover;
+}
+
+/* CONVITE */
+#convite{
+display:none;
+position:relative;
+}
+
+#convite img{
+width:100%;
+display:block;
+}
+
+/* ÁREAS DE CLIQUE */
+.click{
+position:absolute;
+bottom:3.5%;
+width:12%;
+height:8%;
+border-radius:50%;
+cursor:pointer;
+}
+
+/* POSIÇÕES */
+.dress{
+left:7%;
+}
+
+.local{
+left:26%;
+}
+
+.confirmar{
+left:44%;
+}
+
+.presente{
+left:62%;
+}
+
+.manual{
+left:80%;
+}
+
+/* MODAL */
+.modal{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.9);
+justify-content:center;
+align-items:center;
+z-index:9999;
+padding:20px;
+}
+
+.modal img{
+width:100%;
+max-width:500px;
+border-radius:20px;
+}
+
+.close{
+position:absolute;
+top:20px;
+right:25px;
+font-size:40px;
+color:white;
+font-weight:bold;
+cursor:pointer;
+}
+
+/* BOTÃO ENTRAR */
+#playOverlay{
+position:fixed;
+inset:0;
+background:black;
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:99999;
+}
+
+.play-btn{
+background:#b79a63;
+color:white;
+border:none;
+padding:18px 40px;
+border-radius:40px;
+font-size:20px;
+font-weight:bold;
+cursor:pointer;
+box-shadow:0 8px 25px rgba(0,0,0,.4);
+}
+</style>
+</head>
+
+<body>
+
+<!-- BOTÃO DE ENTRADA -->
+<div id="playOverlay">
+<button class="play-btn" onclick="iniciarConvite()">
+Abrir Convite 💛
+</button>
+</div>
+
+<!-- VÍDEO -->
+<div class="container">
+<video id="video" playsinline preload="auto">
+<source src="video.mp4" type="video/mp4">
+</video>
+</div>
+
+<!-- MÚSICA -->
+<audio id="musica" loop>
+<source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<!-- CONVITE -->
+<div id="convite" class="container">
+
+<img src="convite.png" alt="Convite">
+
+<div class="click dress" onclick="abrirModal('dresscode.png')"></div>
+
+<div class="click local" onclick="abrirLocal()"></div>
+
+<div class="click confirmar" onclick="abrirConfirmacao()"></div>
+
+<div class="click presente" onclick="copiarPix()"></div>
+
+<div class="click manual" onclick="abrirModal('manual.png')"></div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal" onclick="fecharModal()">
+<span class="close">×</span>
+<img id="imgModal">
+</div>
+
+<script>
+
+const video = document.getElementById("video");
+const musica = document.getElementById("musica");
+const convite = document.getElementById("convite");
+
+/* INICIAR */
+function iniciarConvite(){
+
+document.getElementById("playOverlay").style.display="none";
+
+video.play().catch(()=>{});
+musica.play().catch(()=>{});
+}
+
+/* QUANDO TERMINAR O VÍDEO */
+video.onended = () => {
+video.style.display="none";
+convite.style.display="block";
+};
+
+/* MODAL */
+function abrirModal(img){
+document.getElementById("modal").style.display="flex";
+document.getElementById("imgModal").src=img;
+}
+
+function fecharModal(){
+document.getElementById("modal").style.display="none";
+}
+
+/* LOCALIZAÇÃO */
+function abrirLocal(){
+window.open(
+"https://share.google/unqtJ1mP9uSPobIu9",
+"_blank"
+);
+}
+
+/* CONFIRMAÇÃO RSVP */
+function abrirConfirmacao(){
+window.open(
+"https://rspv-casamento-three.vercel.app/",
+"_blank"
+);
+}
+
+/* PIX */
+function copiarPix(){
+
+navigator.clipboard.writeText("02965634207");
+
+alert("💚 Chave Pix copiada!");
+}
+
+</script>
+
+</body>
+</html>
