@@ -2,7 +2,7 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <title>Joaz & Thaay</title>
 
@@ -25,7 +25,6 @@ html,body{
   position:relative;
   max-width:500px;
   margin:auto;
-  background:black;
 }
 
 /* VÍDEO */
@@ -52,29 +51,29 @@ video{
   position:absolute;
   bottom:3.5%;
   width:12%;
-  height:6%;
+  height:7%;
   cursor:pointer;
 }
 
-/* POSIÇÕES DOS BOTÕES */
+/* POSIÇÃO DOS BOTÕES */
 .dress{
- left:7%;
+  left:7%;
 }
 
 .local{
- left:26%;
+  left:26%;
 }
 
 .confirmar{
- left:44%;
+  left:44%;
 }
 
 .presente{
- left:62%;
+  left:62%;
 }
 
 .manual{
- left:80%;
+  left:80%;
 }
 
 /* MODAL */
@@ -113,14 +112,16 @@ video{
 
 <!-- VÍDEO -->
 <div class="container">
-  <video id="video" poster="capa.jpg" playsinline>
-    <source src="video.mp4" type="video/mp4">
-  </video>
+
+<video id="video" playsinline preload="metadata">
+<source src="video.mp4" type="video/mp4">
+</video>
+
 </div>
 
 <!-- MÚSICA -->
 <audio id="musica" loop>
-  <source src="musica.mp3" type="audio/mp3">
+<source src="musica.mp3" type="audio/mp3">
 </audio>
 
 <!-- CONVITE -->
@@ -168,73 +169,82 @@ const convite = document.getElementById("convite");
 const modal = document.getElementById("modal");
 const imgModal = document.getElementById("imgModal");
 
+/* COMEÇA PARADO NO PRIMEIRO FRAME */
+video.pause();
+
 /* TOQUE PARA ABRIR */
 video.addEventListener("click", async () => {
 
- try{
-   await video.play();
-   await musica.play();
- }catch(error){
-   console.log(error);
- }
+  try{
+
+    await video.play();
+    await musica.play();
+
+  }catch(error){
+
+    console.log(error);
+
+  }
 
 });
 
 /* TERMINOU O VÍDEO */
 video.onended = () => {
 
- video.style.display = "none";
- convite.style.display = "block";
+  video.style.display = "none";
+  convite.style.display = "block";
 
 };
 
 /* ABRIR MODAL */
 function abrirModal(imagem){
 
- modal.style.display = "flex";
- imgModal.src = imagem;
+  modal.style.display = "flex";
+  imgModal.src = imagem;
 
 }
 
 /* FECHAR MODAL */
 function fecharModal(){
 
- modal.style.display = "none";
+  modal.style.display = "none";
 
 }
 
 /* LOCALIZAÇÃO */
 function abrirLocal(){
 
- window.open(
- "https://share.google/unqtJ1mP9uSPobIu9",
- "_blank"
- );
+window.open(
+"https://share.google/unqtJ1mP9uSPobIu9",
+"_blank"
+);
 
 }
 
-/* CONFIRMAR PRESENÇA */
+/* RSVP */
 function abrirConfirmacao(){
 
- window.open(
- "https://rspv-casamento-three.vercel.app/",
- "_blank"
- );
+window.open(
+"https://rspv-casamento-three.vercel.app/",
+"_blank"
+);
 
 }
 
 /* PIX */
 imgModal.addEventListener("click", () => {
 
- if(imgModal.src.includes("presentes.png")){
+if(imgModal.src.includes("presentes.png")){
 
-   navigator.clipboard.writeText("02965634207");
+navigator.clipboard.writeText("02965634207");
 
-   alert("💚 Obrigada pelo carinho!\nSua contribuição significa muito para nós. Que Deus abençoe você ✨");
+alert(
+"💚 Obrigada pelo carinho!\nO maior presente é sua presença, mas sua contribuição com nosso novo começo será recebida com muito amor ✨"
+);
+
 }
 
 });
-
 
 </script>
 
