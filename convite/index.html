@@ -169,18 +169,15 @@ const convite = document.getElementById("convite");
 const modal = document.getElementById("modal");
 const imgModal = document.getElementById("imgModal");
 
-/* COMEÇA PARADO NO PRIMEIRO FRAME */
-video.pause();
-
 /* TOQUE PARA ABRIR */
 video.addEventListener("click", async () => {
 
-  try{
+  try {
 
     await video.play();
     await musica.play();
 
-  }catch(error){
+  } catch(error) {
 
     console.log(error);
 
@@ -224,8 +221,6 @@ window.open(
 /* RSVP */
 function abrirConfirmacao(){
 
-function abrirConfirmacao(){
-
 window.open(
 "https://rspv-casamento-three.vercel.app/RSVP/index.html",
 "_blank"
@@ -233,7 +228,7 @@ window.open(
 
 }
 
-/* PIX */
+/* PIX PRESENTES */
 imgModal.addEventListener("click", () => {
 
 if(imgModal.src.includes("presentes.png")){
