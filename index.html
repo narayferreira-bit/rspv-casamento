@@ -1,312 +1,250 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
+<title>Joaz & Thaay</title>
 
 <style>
-
 *{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  -webkit-tap-highlight-color: transparent;
 }
 
 html,body{
-margin:0;
-padding:0;
-overflow-x:hidden;
-touch-action:manipulation;
-overscroll-behavior:none;
+  background:black;
+  overflow-x:hidden;
+  font-family: serif;
 }
 
-body{
-font-family:Arial, sans-serif;
-background:url('https://i.ibb.co/zWGf65FK/file-00000000771071f59cc5b2ff3766088e.png') no-repeat center center;
-background-size:cover;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px 0;
-}
-
+/* CONTAINER */
 .container{
-background:rgba(255,255,255,0.95);
-padding:20px;
-border-radius:20px;
-width:90%;
-max-width:340px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
+  position:relative;
+  max-width:500px;
+  margin:auto;
 }
 
-.titulo{
-width:240px;
-margin-bottom:20px;
-pointer-events:none;
-user-select:none;
+/* VÍDEO */
+video{
+  width:100%;
+  display:block;
+  object-fit:cover;
+  cursor:pointer;
 }
 
-input{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-margin-bottom:10px;
-font-size:16px;
-outline:none;
+/* CONVITE */
+#convite{
+  display:none;
+  position:relative;
 }
 
-button{
-width:100%;
-padding:12px;
-background:#5c6f4f;
-color:white;
-border:none;
-border-radius:12px;
-font-weight:600;
-font-family:'Cinzel Decorative', serif;
-letter-spacing:1px;
-transition:.3s;
-cursor:pointer;
-font-size:15px;
+#convite img{
+  width:100%;
+  display:block;
 }
 
-button:active{
-transform:scale(.97);
+/* ÁREAS DE CLIQUE */
+.click{
+  position:absolute;
+  bottom:3.5%;
+  width:12%;
+  height:7%;
+  cursor:pointer;
 }
 
-.loading{
-opacity:.6;
-pointer-events:none;
+/* POSIÇÃO DOS BOTÕES */
+.dress{
+  left:7%;
 }
 
-select{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-margin:10px 0;
-font-size:15px;
+.local{
+  left:26%;
 }
 
-.lista{
-margin-top:10px;
+.confirmar{
+  left:44%;
 }
 
-.nome-item{
-padding:12px;
-border-radius:12px;
-background:#eeeeee;
-margin-top:8px;
-cursor:pointer;
-font-family:'Cinzel', serif;
-transition:.2s;
+.presente{
+  left:62%;
 }
 
-.nome-item:hover{
-background:#e2e2e2;
+.manual{
+  left:80%;
 }
 
-.resultado{
-margin-top:10px;
-font-family:'Cinzel', serif;
-font-size:16px;
-letter-spacing:1px;
+/* MODAL */
+.modal{
+  display:none;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0.85);
+  justify-content:center;
+  align-items:center;
+  z-index:999;
+  padding:20px;
 }
 
-.pix-box{
-margin-top:35px;
-padding:18px;
-background:#f3f3f3;
-border-radius:15px;
+.modal img{
+  width:100%;
+  max-width:500px;
+  border-radius:12px;
 }
 
-.pix-title{
-font-family:'Cinzel Decorative', serif;
-margin-bottom:15px;
-font-size:18px;
-letter-spacing:1px;
+.close{
+  position:absolute;
+  top:20px;
+  right:25px;
+  color:white;
+  font-size:35px;
+  cursor:pointer;
 }
-
-.toast{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(.9);
-background:rgba(255,255,255,.97);
-backdrop-filter:blur(12px);
-padding:20px;
-border-radius:20px;
-font-family:'Cinzel', serif;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-opacity:0;
-transition:.3s;
-z-index:9999;
-width:85%;
-max-width:300px;
-}
-
-.toast.show{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-}
-
 </style>
 </head>
 
-<body oncontextmenu="return false;">
+<body>
 
+<!-- VÍDEO -->
 <div class="container">
 
-<img class="titulo"
-src="https://i.ibb.co/Vc3YTkHy/Design-sem-nome-20260428-232736-0000.png">
-
-<input id="nome" placeholder="Digite seu nome">
-
-<button id="btnBuscar" onclick="buscar()">
-Buscar
-</button>
-
-<div id="lista" class="lista"></div>
-
-<div id="resultado" class="resultado"></div>
-
-<div id="confirmacao" style="display:none;">
-<p>Você irá comparecer?</p>
-
-<select id="resposta">
-<option>Sim, irei</option>
-<option>Não poderei ir</option>
-</select>
-
-<button id="btnConfirmar" onclick="confirmar()">
-Confirmar presença
-</button>
-</div>
-
-<div class="pix-box">
-<div class="pix-title">
-💚 Presenteie-nos
-</div>
-
-<button onclick="copiarPix()">
-Copiar chave Pix
-</button>
-</div>
+<video id="video" playsinline preload="metadata">
+<source src="video.mp4" type="video/mp4">
+</video>
 
 </div>
 
-<div id="toast" class="toast"></div>
+<!-- MÚSICA -->
+<audio id="musica" loop>
+<source src="musica.mp3" type="audio/mp3">
+</audio>
+
+<!-- CONVITE -->
+<div id="convite" class="container">
+
+<img src="convite.png">
+
+<div class="click dress"
+onclick="abrirModal('dresscode.png')">
+</div>
+
+<div class="click local"
+onclick="abrirLocal()">
+</div>
+
+<div class="click confirmar"
+onclick="abrirConfirmacao()">
+</div>
+
+<div class="click presente"
+onclick="abrirModal('presentes.png')">
+</div>
+
+<div class="click manual"
+onclick="abrirModal('manual.png')">
+</div>
+
+</div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+
+<span class="close"
+onclick="fecharModal()">×</span>
+
+<img id="imgModal">
+
+</div>
 
 <script>
 
-const url =
-"https://script.google.com/macros/s/AKfycbwx4FDawR9MDDEhVfhpo2CbiOrFHEhXGZg7EwtfRh0On02ns9LttO5Ix07Cm_Mqsd84/exec";
+const video = document.getElementById("video");
+const musica = document.getElementById("musica");
+const convite = document.getElementById("convite");
+const modal = document.getElementById("modal");
+const imgModal = document.getElementById("imgModal");
 
-// TOAST
-function toast(msg){
-let t=document.getElementById("toast");
-t.innerHTML=msg;
-t.classList.add("show");
+/* COMEÇA PARADO NO PRIMEIRO FRAME */
+video.pause();
 
-setTimeout(()=>{
-t.classList.remove("show");
-},2500);
-}
+/* TOQUE PARA ABRIR */
+video.addEventListener("click", async () => {
 
-// BUSCAR
-function buscar(){
+  try{
 
-let nome=document.getElementById("nome").value.trim();
-let btn=document.getElementById("btnBuscar");
+    await video.play();
+    await musica.play();
 
-if(!nome){
-toast("Digite seu nome 🤍");
-return;
-}
+  }catch(error){
 
-btn.classList.add("loading");
-btn.innerText="Buscando...";
+    console.log(error);
 
-fetch(url+"?nome="+encodeURIComponent(nome))
-.then(r=>r.json())
-.then(d=>{
+  }
 
-btn.classList.remove("loading");
-btn.innerText="Buscar";
+});
 
-let lista=document.getElementById("lista");
-lista.innerHTML="";
+/* TERMINOU O VÍDEO */
+video.onended = () => {
 
-if(!d.encontrado){
-toast("Nome não encontrado ❌");
-return;
-}
+  video.style.display = "none";
+  convite.style.display = "block";
 
-let div=document.createElement("div");
-div.className="nome-item";
-div.innerText=d.nome;
-
-div.onclick=function(){
-document.getElementById("nome").value=d.nome;
-document.getElementById("resultado").innerText=d.nome;
-document.getElementById("confirmacao").style.display="block";
-lista.innerHTML="";
 };
 
-lista.appendChild(div);
+/* ABRIR MODAL */
+function abrirModal(imagem){
 
-});
+  modal.style.display = "flex";
+  imgModal.src = imagem;
+
 }
 
-// CONFIRMAR
-function confirmar(){
+/* FECHAR MODAL */
+function fecharModal(){
 
-let nome=document.getElementById("nome").value;
-let status=document.getElementById("resposta").value;
-let btn=document.getElementById("btnConfirmar");
+  modal.style.display = "none";
 
-btn.classList.add("loading");
-btn.innerText="Confirmando...";
-
-fetch(url,{
-method:"POST",
-body:JSON.stringify({
-nome:nome,
-status:status
-})
-})
-.then(r=>r.json())
-.then(d=>{
-
-btn.classList.remove("loading");
-btn.innerText="Confirmar presença";
-
-if(d.sucesso){
-toast("Obrigada pelo carinho 💚<br><small>Nos vemos em breve</small>");
-}else{
-toast("Erro ao confirmar ❌");
 }
 
-})
-.catch(()=>{
+/* LOCALIZAÇÃO */
+function abrirLocal(){
 
-btn.classList.remove("loading");
-btn.innerText="Confirmar presença";
+window.open(
+"https://share.google/unqtJ1mP9uSPobIu9",
+"_blank"
+);
 
-toast("Erro ao confirmar ❌");
-});
 }
 
-// PIX
-function copiarPix(){
+/* RSVP */
+function abrirConfirmacao(){
+
+window.open(
+"https://rspv-casamento-three.vercel.app/",
+"_blank"
+);
+
+}
+
+/* PIX */
+imgModal.addEventListener("click", () => {
+
+if(imgModal.src.includes("presentes.png")){
+
 navigator.clipboard.writeText("02965634207");
-toast("Obrigada pelo carinho 💚");
+
+alert(
+"💚 Obrigada pelo carinho!\nO maior presente é sua presença, mas sua contribuição com nosso novo começo será recebida com muito amor ✨"
+);
+
 }
+
+});
 
 </script>
 
