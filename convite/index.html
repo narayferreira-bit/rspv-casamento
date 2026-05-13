@@ -235,14 +235,75 @@ if(imgModal.src.includes("presentes.png")){
 
 navigator.clipboard.writeText("02965634207");
 
-alert(
-"💚 Obrigada pelo carinho!\nO maior presente é sua presença, mas sua contribuição com nosso novo começo será recebida com muito amor ✨"
-);
+/* remove aviso antigo se existir */
+const avisoAntigo = document.getElementById("avisoPix");
+if(avisoAntigo){
+  avisoAntigo.remove();
+}
+
+/* cria caixa branca elegante */
+const aviso = document.createElement("div");
+aviso.id = "avisoPix";
+
+aviso.innerHTML = `
+<div style="
+position:fixed;
+top:50%;
+left:50%;
+transform:translate(-50%, -50%);
+background:#fff;
+padding:28px;
+border-radius:28px;
+width:85%;
+max-width:420px;
+box-shadow:0 10px 35px rgba(0,0,0,0.18);
+z-index:99999;
+text-align:center;
+font-family:'Cinzel', serif;
+animation:fadeIn .3s ease;
+">
+
+<p style="
+font-size:16px;
+color:#4f5d41;
+line-height:1.8;
+margin:0;
+font-family:'Cinzel', serif;
+">
+💚 O maior presente é sua presença,<br>
+mas sua contribuição com nosso novo começo será recebida com muito amor ✨
+</p>
+
+<button onclick="document.getElementById('avisoPix').remove()"
+style="
+margin-top:20px;
+background:#6b7d57;
+color:white;
+border:none;
+padding:14px 30px;
+border-radius:14px;
+font-size:16px;
+cursor:pointer;
+font-family:'Cinzel', serif;
+">
+OK
+</button>
+
+</div>
+`;
+
+document.body.appendChild(aviso);
+
+setTimeout(() => {
+const caixa = document.getElementById("avisoPix");
+if(caixa){
+caixa.remove();
+}
+}, 5000);
 
 }
 
 });
-
 </script>
 
 </body>
