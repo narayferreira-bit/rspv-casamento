@@ -265,9 +265,14 @@ lista.appendChild(div);
 // CONFIRMAR
 function confirmar(){
 
-let nome=document.getElementById("nome").value;
+let nome=document.getElementById("nome").value.trim();
 let status=document.getElementById("resposta").value;
 let btn=document.getElementById("btnConfirmar");
+
+if(!nome){
+toast("Digite seu nome 🤍");
+return;
+}
 
 btn.classList.add("loading");
 btn.innerText="Confirmando...";
@@ -286,7 +291,20 @@ btn.classList.remove("loading");
 btn.innerText="Confirmar presença";
 
 if(d.sucesso){
+
 toast("Obrigada pelo carinho 💚<br><small>Nos vemos em breve</small>");
+
+setTimeout(()=>{
+
+document.getElementById("nome").value="";
+document.getElementById("resultado").innerText="";
+document.getElementById("lista").innerHTML="";
+document.getElementById("confirmacao").style.display="none";
+document.getElementById("resposta").selectedIndex=0;
+document.getElementById("nome").focus();
+
+},1500);
+
 }else{
 toast("Erro ao confirmar ❌");
 }
