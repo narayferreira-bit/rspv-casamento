@@ -1,210 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600&family=Cinzel+Decorative:wght@400;700&display=swap" rel="stylesheet">
-
-<style>
-
-*{
-box-sizing:border-box;
--webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-margin:0;
-padding:0;
-overflow-x:hidden;
-touch-action:manipulation;
-overscroll-behavior:none;
-}
-
-body{
-font-family:Arial, sans-serif;
-background:url('https://i.ibb.co/zWGf65FK/file-00000000771071f59cc5b2ff3766088e.png') no-repeat center center;
-background-size:cover;
-display:flex;
-justify-content:center;
-align-items:center;
-min-height:100vh;
-padding:20px 0;
-}
-
-.container{
-background:rgba(255,255,255,0.95);
-padding:20px;
-border-radius:20px;
-width:90%;
-max-width:340px;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,0.15);
-}
-
-.titulo{
-width:240px;
-margin-bottom:20px;
-pointer-events:none;
-user-select:none;
-}
-
-input{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-margin-bottom:10px;
-font-size:16px;
-outline:none;
-}
-
-button{
-width:100%;
-padding:12px;
-background:#5c6f4f;
-color:white;
-border:none;
-border-radius:12px;
-font-weight:600;
-font-family:'Cinzel Decorative', serif;
-letter-spacing:1px;
-transition:.3s;
-cursor:pointer;
-font-size:15px;
-}
-
-button:active{
-transform:scale(.97);
-}
-
-.loading{
-opacity:.6;
-pointer-events:none;
-}
-
-select{
-width:100%;
-padding:12px;
-border-radius:12px;
-border:1px solid #ddd;
-margin:10px 0;
-font-size:15px;
-}
-
-.lista{
-margin-top:10px;
-}
-
-.nome-item{
-padding:12px;
-border-radius:12px;
-background:#eeeeee;
-margin-top:8px;
-cursor:pointer;
-font-family:'Cinzel', serif;
-transition:.2s;
-}
-
-.nome-item:hover{
-background:#e2e2e2;
-}
-
-.resultado{
-margin-top:10px;
-font-family:'Cinzel', serif;
-font-size:16px;
-letter-spacing:1px;
-}
-
-.pix-box{
-margin-top:35px;
-padding:18px;
-background:#f3f3f3;
-border-radius:15px;
-}
-
-.pix-title{
-font-family:'Cinzel Decorative', serif;
-margin-bottom:15px;
-font-size:18px;
-letter-spacing:1px;
-}
-
-.toast{
-position:fixed;
-top:50%;
-left:50%;
-transform:translate(-50%,-50%) scale(.9);
-background:rgba(255,255,255,.97);
-backdrop-filter:blur(12px);
-padding:20px;
-border-radius:20px;
-font-family:'Cinzel', serif;
-text-align:center;
-box-shadow:0 10px 30px rgba(0,0,0,.2);
-opacity:0;
-transition:.3s;
-z-index:9999;
-width:85%;
-max-width:300px;
-}
-
-.toast.show{
-opacity:1;
-transform:translate(-50%,-50%) scale(1);
-}
-
-</style>
-</head>
-
-<body oncontextmenu="return false;">
-
-<div class="container">
-
-<img class="titulo"
-src="https://i.ibb.co/Vc3YTkHy/Design-sem-nome-20260428-232736-0000.png">
-
-<input id="nome" placeholder="Digite seu nome">
-
-<button id="btnBuscar" onclick="buscar()">
-Buscar
-</button>
-
-<div id="lista" class="lista"></div>
-
-<div id="resultado" class="resultado"></div>
-
-<div id="confirmacao" style="display:none;">
-<p>Você irá comparecer?</p>
-
-<select id="resposta">
-<option>Sim, irei</option>
-<option>Não poderei ir</option>
-</select>
-
-<button id="btnConfirmar" onclick="confirmar()">
-Confirmar presença
-</button>
-</div>
-
-<div class="pix-box">
-<div class="pix-title">
-💚 Presenteie-nos
-</div>
-
-<button onclick="copiarPix()">
-Copiar chave Pix
-</button>
-</div>
-
-</div>
-
-<div id="toast" class="toast"></div>
-
 <script>
 
-const url = "const url = "https://script.google.com/macros/s/AKfycbzhM1XPqXIDP24WD5E5VKL6TPhLTsa-UJRW9PTK5PZKtgaQDuUIkq6iqg6Zz72Fxhf-CA/exec";
+const url = "https://script.google.com/macros/s/AKfycbzhM1XPqXIDP24WD5E5VKL6TPhLTsa-UJRW9PTK5PZKtgaQDuUIkq6iqg6Zz72Fxhf-CA/exec";
 
 // TOAST
 function toast(msg){
@@ -259,7 +55,13 @@ lista.innerHTML="";
 
 lista.appendChild(div);
 
+})
+.catch(()=>{
+btn.classList.remove("loading");
+btn.innerText="Buscar";
+toast("Erro ao buscar ❌");
 });
+
 }
 
 // CONFIRMAR
@@ -317,6 +119,7 @@ btn.innerText="Confirmar presença";
 
 toast("Erro ao confirmar ❌");
 });
+
 }
 
 // PIX
@@ -326,6 +129,3 @@ toast("Obrigada pelo carinho 💚");
 }
 
 </script>
-
-</body>
-</html>
