@@ -28,6 +28,19 @@ html,body{
   margin:auto;
 }
 
+#toqueAbrir{
+  position:absolute;
+  bottom:18%;
+  left:50%;
+  transform:translateX(-50%);
+  z-index:10;
+  color:#f5e3b3;
+  font-family:'Cinzel Decorative', serif;
+  font-size:20px;
+  white-space:nowrap;
+  text-shadow:0 0 12px rgba(255,215,120,.9);
+}
+
 /* VÍDEO */
 video{
   width:100%;
@@ -50,27 +63,27 @@ video{
 /* ÁREAS DE CLIQUE */
 .click{
   position:absolute;
-  bottom:9%;
-  width:12%;
-  height:7%;
+  bottom:7.5%;
+  width:16%;
+  height:12%;
   cursor:pointer;
 }
 
 /* POSIÇÃO DOS BOTÕES */
 .dress{
-  left:7%;
+  left:3%;
 }
 
 .local{
-  left:26%;
+  left:22%;
 }
 
 .confirmar{
-  left:44%;
+  left:41%;
 }
 
 .presente{
-  left:62%;
+  left:60%;
 }
 
 .manual{
@@ -106,26 +119,6 @@ video{
   font-size:35px;
   cursor:pointer;
 }
-
-#toqueAbrir{
-  position:absolute;
-  top:78%;
-  left:50%;
-  transform:translateX(-50%);
-  z-index:10;
-  color:#f5e3b3;
-  font-family:'Cinzel Decorative', serif;
-  font-size:22px;
-  text-shadow:0 0 10px rgba(255,215,120,.8);
-  animation:pulsar 2s infinite;
-}
-
-@keyframes pulsar{
-  0%{opacity:.4;}
-  50%{opacity:1;}
-  100%{opacity:.4;}
-}
-
 </style>
 </head>
 
@@ -135,7 +128,6 @@ video{
 <div class="container">
 
 <div id="toqueAbrir">✨ Toque para abrir ✨</div>
-
 <video id="video" playsinline preload="metadata">
 <source src="video.mp4" type="video/mp4">
 </video>
@@ -194,9 +186,8 @@ const imgModal = document.getElementById("imgModal");
 
 /* TOQUE PARA ABRIR */
 video.addEventListener("click", async () => {
-
-  const aviso = document.getElementById("toqueAbrir");
-  if(aviso) aviso.style.display = "none";
+  const aviso=document.getElementById("toqueAbrir");
+  if(aviso) aviso.style.display="none";
 
   try {
 
